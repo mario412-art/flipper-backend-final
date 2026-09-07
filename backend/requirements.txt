@@ -7,5 +7,4 @@ requests
 pydantic
 pydantic-settings
 python-multipart
-
 Pillow
