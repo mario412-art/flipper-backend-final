@@ -29,14 +29,20 @@ class PricingService:
 
     def _match_similarity(self, comp: dict, product_info: AIProductIdentification) -> float:
         """Paso 2: Matching de similitud basado en el título del comparable"""
-        title = comp["title"]
+        title = comp["title"].lower()
         score = 1.0
 
         # Palabras negativas estrictas (Descartar instantáneo)
         negatives = ["caja", "box only", "funda", "case", "repuestos", "piezas", "parts", 
-                     "roto", "broken", "desguace", "solo", "empty", "cargador", "pantalla rota"]
+                     "roto", "broken", "desguace", "solo", "empty", "cargador", "pantalla rota",
+                     "carcasa", "protector", "cristal", "silicona", "templado", "cover"]
+                     
+        # Qué estamos buscando realmente
+        search_query_lower = product_info.search_query.lower() if product_info.search_query else f"{product_info.brand} {product_info.model}".lower()
+
         for kw in negatives:
-            if kw in title:
+            # Solo penalizar si el anuncio dice "funda" pero nosotros NO estamos buscando una funda
+            if kw in title and kw not in search_query_lower:
                 return 0.0 # Similitud cero, se descartará
 
         # Si el modelo tiene la variante detectada (ej "Pro Max"), el comparable también debería tenerla
