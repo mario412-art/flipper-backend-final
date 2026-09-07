@@ -61,6 +61,15 @@ class EbayMarketProvider(MarketDataProvider):
                 "filter": "buyingOptions:{FIXED_PRICE},price:[2..10000],priceCurrency:EUR"
             }
             
+            # Heurística dinámica de categorías (para evitar fundas de móviles sin romper zapatillas)
+            ql = query.lower()
+            if any(x in ql for x in ["iphone", "samsung galaxy", "xiaomi", "pixel", "smartphone"]):
+                params["category_ids"] = "9355" # Telefonía
+            elif any(x in ql for x in ["yeezy", "jordan", "dunk", "zapatillas", "sneakers", "nike", "adidas"]):
+                params["category_ids"] = "15709" # Zapatillas deportivas
+            elif any(x in ql for x in ["game boy", "nintendo", "playstation", "xbox", "consola"]):
+                params["category_ids"] = "139971" # Consolas
+            
             async with httpx.AsyncClient() as client:
                 response = await client.get(self.search_url, headers=headers, params=params)
                 

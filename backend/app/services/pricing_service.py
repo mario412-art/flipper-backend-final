@@ -36,7 +36,9 @@ class PricingService:
         negatives = ["caja", "box only", "funda", "case", "repuestos", "piezas", "parts", 
                      "roto", "broken", "desguace", "solo", "empty", "cargador", "pantalla rota",
                      "carcasa", "protector", "cristal", "silicona", "templado", "cover",
-                     "icloud", "locked", "dummy", "maqueta", "bloqueo", "bloqueado", "fake", "falso"]
+                     "icloud", "locked", "dummy", "maqueta", "bloqueo", "bloqueado", "fake", "falso",
+                     "bumper", "skin", "wallet", "sticker", "pegatina", "cable", "usb", "adaptador", 
+                     "adapter", "lens", "lente", "soporte", "mount", "holder", "stand", "tripode"]
                      
         # Qué estamos buscando realmente
         search_query_lower = product_info.search_query.lower() if product_info.search_query else f"{product_info.brand} {product_info.model}".lower()
