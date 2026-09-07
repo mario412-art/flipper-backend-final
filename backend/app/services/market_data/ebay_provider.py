@@ -53,17 +53,7 @@ class EbayMarketProvider(MarketDataProvider):
                 "X-EBAY-C-MARKETPLACE-ID": "EBAY_ES"
             }
             
-            # Lista de exclusiones comunes para todo tipo de productos
-            exclusions = ["funda", "case", "carcasa", "cristal", "protector", "caja", "box", "roto", "desguace", "icloud", "locked", "dummy", "maqueta", "bloqueo", "fake", "falso"]
-            
-            # Excluimos inteligentemente: si el usuario BUSCA una funda, no prohibimos la palabra funda.
-            query_lower = query.lower()
-            active_exclusions = [kw for kw in exclusions if kw not in query_lower]
-            
-            if active_exclusions:
-                safe_query = f"{query} -({','.join(active_exclusions)})"
-            else:
-                safe_query = query
+            safe_query = query
             
             params = {
                 "q": safe_query,
