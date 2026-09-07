@@ -67,7 +67,8 @@ class EbayMarketProvider(MarketDataProvider):
             
             params = {
                 "q": safe_query,
-                "limit": limit
+                "limit": limit,
+                "filter": "buyingOptions:{FIXED_PRICE},price:[2..10000],priceCurrency:EUR"
             }
             
             async with httpx.AsyncClient() as client:
