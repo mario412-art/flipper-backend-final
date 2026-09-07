@@ -53,8 +53,8 @@ class EbayMarketProvider(MarketDataProvider):
                 "X-EBAY-C-MARKETPLACE-ID": "EBAY_ES"
             }
             
-            # Lista de exclusiones comunes
-            exclusions = ["funda", "case", "carcasa", "cristal", "protector", "caja", "box", "roto", "desguace"]
+            # Lista de exclusiones comunes para todo tipo de productos
+            exclusions = ["funda", "case", "carcasa", "cristal", "protector", "caja", "box", "roto", "desguace", "icloud", "locked", "dummy", "maqueta", "bloqueo", "fake", "falso"]
             
             # Excluimos inteligentemente: si el usuario BUSCA una funda, no prohibimos la palabra funda.
             query_lower = query.lower()
@@ -67,8 +67,7 @@ class EbayMarketProvider(MarketDataProvider):
             
             params = {
                 "q": safe_query,
-                "limit": limit,
-                "category_ids": "9355"
+                "limit": limit
             }
             
             async with httpx.AsyncClient() as client:
