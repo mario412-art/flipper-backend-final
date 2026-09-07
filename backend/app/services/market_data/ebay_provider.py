@@ -67,7 +67,8 @@ class EbayMarketProvider(MarketDataProvider):
             
             params = {
                 "q": safe_query,
-                "limit": limit
+                "limit": limit,
+                "category_ids": "9355"
             }
             
             async with httpx.AsyncClient() as client:

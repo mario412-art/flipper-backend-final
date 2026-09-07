@@ -35,7 +35,8 @@ class PricingService:
         # Palabras negativas estrictas (Descartar instantáneo)
         negatives = ["caja", "box only", "funda", "case", "repuestos", "piezas", "parts", 
                      "roto", "broken", "desguace", "solo", "empty", "cargador", "pantalla rota",
-                     "carcasa", "protector", "cristal", "silicona", "templado", "cover"]
+                     "carcasa", "protector", "cristal", "silicona", "templado", "cover",
+                     "icloud", "locked", "dummy", "maqueta", "bloqueo", "bloqueado", "fake", "falso"]
                      
         # Qué estamos buscando realmente
         search_query_lower = product_info.search_query.lower() if product_info.search_query else f"{product_info.brand} {product_info.model}".lower()
@@ -81,7 +82,7 @@ class PricingService:
         q3 = prices[(len(prices) * 3) // 4]
         iqr = q3 - q1
         
-        lower_bound = q1 - (1.5 * iqr)
+        lower_bound = q1 - (0.5 * iqr)
         upper_bound = q3 + (1.5 * iqr)
         
         return [p for p in prices if lower_bound <= p <= upper_bound]
