@@ -102,4 +102,4 @@ async def create_valuation(
     except Exception as e:
         import traceback
         print("ERROR:", traceback.format_exc())
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Error interno del servidor")
