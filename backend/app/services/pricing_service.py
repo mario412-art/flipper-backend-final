@@ -46,12 +46,12 @@ class PricingService:
                 score -= 0.5 # Penalizar fuertemente si es otra variante
                 
         # Detectar variantes incompatibles (Si yo NO tengo Pro Max, pero el anuncio sí)
-        # Ejemplo: mi modelo es "iPhone 15", pero el anuncio dice "iPhone 15 Pro Max"
         incompatible_variants = ["pro max", "pro", "plus", "ultra"]
         my_variant = (product_info.variant or "").lower()
+        my_model = (product_info.model or "").lower()
         
         for inc in incompatible_variants:
-            if inc in title and inc not in my_variant:
+            if inc in title and inc not in my_variant and inc not in my_model:
                 score -= 0.8 # Es casi seguro que es otro producto superior
         
         return max(0.0, score)
